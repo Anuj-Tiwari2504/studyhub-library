@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <title>Join StudyHub Library Today - Registration</title>
+    <meta name="description" content="Register for StudyHub Library membership. Choose from flexible plans and start your academic journey today.">
+    
+    <!-- Enhanced Mobile Meta Tags -->
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="format-detection" content="address=yes">
+    <meta name="format-detection" content="email=yes">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="width">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="librarystyle.css">
+    
+    <style>
+        body {
+            padding-top: 80px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        .registration-hero {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+        
+        .registration-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .registration-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Enhanced Mobile Optimizations */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            .registration-hero {
+                padding: 2rem 0 1.5rem;
+            }
+            
+            .registration-hero h1 {
+                font-size: 1.8rem;
+                line-height: 1.2;
+            }
+            
+            .registration-hero p {
+                font-size: 1rem;
+            }
+            
+            .register-content {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+            
+            .register-form {
+                padding: 1.5rem !important;
+                margin: 0 10px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 16px !important;
+                padding: 12px !important;
+                -webkit-appearance: none;
+                border-radius: 8px;
+                background-color: #fff;
+            }
+            
+            .btn {
+                min-height: 44px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: rgba(37, 99, 235, 0.2);
+            }
+            
+            .checkbox-label {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+            
+            .total-amount {
+                font-size: 1.1rem;
+                padding: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .registration-hero h1 {
+                font-size: 1.6rem;
+            }
+            
+            .register-form {
+                padding: 1rem !important;
+                margin: 0 5px;
+            }
+            
+            .form-group {
+                margin-bottom: 1rem;
+            }
+            
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 10px !important;
+            }
+        }
+        
+        /* Tablet Optimizations */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .registration-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .register-form {
+                padding: 2rem;
+            }
+        }
+        
+        /* Safe area for notched devices */
+        @supports (padding: max(0px)) {
+            .registration-hero {
+                padding-left: max(20px, env(safe-area-inset-left));
+                padding-right: max(20px, env(safe-area-inset-right));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <span>StudyHub Library</span>
+                </div>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="index.html#about" class="nav-link">About</a>
+                    <a href="index.html#facilities" class="nav-link">Facilities</a>
+                    <a href="index.html#plans" class="nav-link">Plans</a>
+                    <a href="index.html#gallery" class="nav-link">Gallery</a>
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+
+                    <a href="#" class="nav-link" onclick="openAdminModal()">Admin</a>
+                    <a href="registration.html" class="nav-link btn-register">Join Now</a>
+                </div>
+                <div class="hamburger" id="hamburger" role="button" aria-label="Toggle navigation menu" tabindex="0">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Registration Hero -->
+    <section class="registration-hero">
+        <div class="container">
+            <h1>Join StudyHub Library Today</h1>
+            <p>Start your journey towards academic success</p>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section class="register">
+        <div class="container">
+            <div class="register-content">
+                <div class="register-form">
+                    <form id="registrationForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fullName">Full Name *</label>
+                                <input type="text" id="fullName" required autocomplete="name" inputmode="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" required autocomplete="tel" inputmode="tel" pattern="[0-9]{10}">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" autocomplete="email" inputmode="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="number" id="age" min="16" max="50" inputmode="numeric">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea id="address" rows="3" autocomplete="street-address"></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="emergencyContact">Emergency Contact</label>
+                                <input type="tel" id="emergencyContact" inputmode="tel" pattern="[0-9]{10}">
+                            </div>
+                            <div class="form-group">
+                                <label for="selectedPlan">Membership Plan *</label>
+                                <select id="selectedPlan" required>
+                                    <option value="">Select Plan</option>
+                                    <option value="daily">Daily Pass - ₹50</option>
+                                    <option value="weekly">Weekly Pass - ₹300</option>
+                                    <option value="monthly">Monthly Pass - ₹500</option>
+                                    <option value="quarterly">Quarterly Pass - ₹1400</option>
+                                    <option value="yearly">Yearly Pass - ₹5000</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="photo">Upload Photo</label>
+                            <input type="file" id="photo" accept="image/*">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="idProof">Upload ID Proof</label>
+                            <input type="file" id="idProof" accept="image/*,.pdf">
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="studentDiscount">
+                                <span class="checkmark"></span>
+                                I am a student (10% discount applicable)
+                            </label>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="terms" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="#terms">Terms & Conditions</a>
+                            </label>
+                        </div>
+                        
+                        <div class="total-amount">
+                            <span>Total Amount: ₹<span id="totalAmount">0</span></span>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <i class="fas fa-credit-card"></i> Register & Pay Now
+                        </button>
+                        
+
+                    </form>
+                </div>
+                
+                <div class="register-benefits">
+                    <h3>What You Get</h3>
+                    <ul class="benefits-list">
+                        <li><i class="fas fa-id-card"></i> <a href="digital-card.html" style="color: #2563eb; text-decoration: none;">Digital membership card</a></li>
+                        <li><i class="fas fa-mobile-alt"></i> <a href="mobile-app.html" style="color: #2563eb; text-decoration: none;">Mobile app access</a></li>
+                        <li><i class="fas fa-bell"></i> <a href="payment-reminders.html" style="color: #2563eb; text-decoration: none;">Payment reminders</a></li>
+                        <li><i class="fas fa-headset"></i> <a href="support-24x7.html" style="color: #2563eb; text-decoration: none;">24/7 support</a></li>
+                        <li><i class="fas fa-gift"></i> <a href="referral-rewards.html" style="color: #2563eb; text-decoration: none;">Referral rewards</a></li>
+                        <li><i class="fas fa-star"></i> <a href="loyalty-points.html" style="color: #2563eb; text-decoration: none;">Loyalty points</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Login Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAdminModal()">&times;</span>
+            <h2><i class="fas fa-user-shield"></i> Admin Login</h2>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminUsername">Username:</label>
+                    <input type="text" id="adminUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password:</label>
+                    <input type="password" id="adminPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <div class="admin-links">
+                    <a href="#" onclick="openForgetPasswordModal()">Forgot Password?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Forget Password Modal -->
+    <div id="forgetPasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeForgetPasswordModal()">&times;</span>
+            <h2><i class="fas fa-key"></i> Reset Password</h2>
+            <form id="forgetPasswordForm">
+                <div class="form-group">
+                    <label for="resetUsername">Username:</label>
+                    <input type="text" id="resetUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password:</label>
+                    <input type="password" id="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Change Password</button>
+                <div class="admin-links">
+                    <a href="#" onclick="backToLogin()">Back to Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="libraryscript.js"></script>
+    <script>
+        // Plan prices
+        const planPrices = {
+            'daily': 50,
+            'weekly': 300,
+            'monthly': 500,
+            'quarterly': 1400,
+            'yearly': 5000
+        };
+        
+        // Update total amount when plan changes
+        document.getElementById('selectedPlan').addEventListener('change', function() {
+            const selectedPlan = this.value;
+            const isStudent = document.getElementById('studentDiscount').checked;
+            let amount = planPrices[selectedPlan] || 0;
+            
+            if (isStudent && amount > 0) {
+                amount = Math.round(amount * 0.9); // 10% discount
+            }
+            
+            document.getElementById('totalAmount').textContent = amount;
+        });
+        
+        // Update amount when student discount changes
+        document.getElementById('studentDiscount').addEventListener('change', function() {
+            const selectedPlan = document.getElementById('selectedPlan').value;
+            const isStudent = this.checked;
+            let amount = planPrices[selectedPlan] || 0;
+            
+            if (isStudent && amount > 0) {
+                amount = Math.round(amount * 0.9); // 10% discount
+            }
+            
+            document.getElementById('totalAmount').textContent = amount;
+        });
+        
+        // Handle registration form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate required fields
+            const name = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const plan = document.getElementById('selectedPlan').value;
+            const terms = document.getElementById('terms').checked;
+            
+            if (!name || !phone || !plan || !terms) {
+                showNotification('Please fill all required fields and accept terms', 'error');
+                return;
+            }
+            
+            const amount = document.getElementById('totalAmount').textContent;
+            
+            if (amount === '0') {
+                showNotification('Please select a membership plan', 'error');
+                return;
+            }
+            
+            // Show payment processing
+            const submitBtn = document.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Payment...';
+            submitBtn.disabled = true;
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                const formData = {
+                    name: name,
+                    phone: phone,
+                    email: document.getElementById('email').value,
+                    plan: plan,
+                    amount: amount,
+                    joinDate: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+                    cardNumber: '2024' + Math.floor(Math.random() * 1000).toString().padStart(3, '0'),
+                    validUntil: new Date(Date.now() + 365*24*60*60*1000).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+                    points: 0,
+                    referrals: 0,
+                    referralEarnings: 0
+                };
+                
+                // Save member data
+                localStorage.setItem('memberData', JSON.stringify(formData));
+                
+                // Show success message
+                showNotification('Payment successful! Registration completed. Redirecting...', 'success');
+                
+                // Reset button
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Payment Successful!';
+                
+                // Redirect to member dashboard
+                setTimeout(() => {
+                    window.location.href = 'member-dashboard.html';
+                }, 2000);
+            }, 2000);
+        });
+        
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed; top: 20px; right: 20px; z-index: 10000;
+                padding: 1rem 1.5rem; border-radius: 8px; color: white; font-weight: bold;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => document.body.removeChild(notification), 4000);
+        }
+    </script>
+    <script>
+        function openAdminModal() {
+            document.getElementById('adminModal').style.display = 'block';
+        }
+        
+        function closeAdminModal() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+        
+        function openForgetPasswordModal() {
+            closeAdminModal();
+            document.getElementById('forgetPasswordModal').style.display = 'block';
+        }
+        
+        function closeForgetPasswordModal() {
+            document.getElementById('forgetPasswordModal').style.display = 'none';
+        }
+        
+        function backToLogin() {
+            closeForgetPasswordModal();
+            openAdminModal();
+        }
+        
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            const adminCredentials = JSON.parse(localStorage.getItem('admin_credentials') || '{"username":"admin","password":"admin123"}');
+            
+            if(username === adminCredentials.username && password === adminCredentials.password) {
+                showNotification('Login successful! Redirecting...', 'success');
+                setTimeout(() => {
+                    window.location.href = 'adminpanel.html';
+                }, 1500);
+            } else {
+                showNotification('Invalid username or password', 'error');
+            }
+        });
+        
+        document.getElementById('forgetPasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('resetUsername').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (newPassword !== confirmPassword) {
+                showNotification('Passwords do not match', 'error');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                showNotification('Password must be at least 6 characters', 'error');
+                return;
+            }
+            
+            const adminCredentials = { username: username, password: newPassword };
+            localStorage.setItem('admin_credentials', JSON.stringify(adminCredentials));
+            
+            showNotification('Password changed successfully!', 'success');
+            setTimeout(() => {
+                backToLogin();
+            }, 1500);
+        });
+        
+        window.onclick = function(event) {
+            const adminModal = document.getElementById('adminModal');
+            const forgetModal = document.getElementById('forgetPasswordModal');
+            if (event.target == adminModal) {
+                adminModal.style.display = 'none';
+            }
+            if (event.target == forgetModal) {
+                forgetModal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

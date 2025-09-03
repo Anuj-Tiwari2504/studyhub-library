@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LibraryPro - Smart Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <span id="headerLibraryName">LibraryPro</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#" data-tab="dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#" data-tab="students"><i class="fas fa-users"></i> Students</a></li>
+                    <li><a href="#" data-tab="payments"><i class="fas fa-rupee-sign"></i> Payments</a></li>
+                    <li><a href="#" data-tab="ai-assistant"><i class="fas fa-robot"></i> AI Assistant</a></li>
+                    <li><a href="#" data-tab="settings"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <main>
+            <!-- Dashboard Tab -->
+            <div class="tab-content active" id="dashboard">
+                <div class="card">
+                    <h1><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h1>
+                    
+                    <div class="stats">
+                        <div class="stat-card clickable-card" data-type="total-students">
+                            <i class="fas fa-users"></i>
+                            <div class="stat-value" id="totalStudents">0</div>
+                            <div class="stat-label">Total Students</div>
+                            <small class="click-hint">Click to view list</small>
+                        </div>
+                        <div class="stat-card clickable-card" data-type="due-today">
+                            <i class="fas fa-clock"></i>
+                            <div class="stat-value" id="dueToday">0</div>
+                            <div class="stat-label">Due Today</div>
+                            <small class="click-hint">Click to view list</small>
+                        </div>
+                        <div class="stat-card clickable-card" data-type="overdue">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div class="stat-value" id="overdue">0</div>
+                            <div class="stat-label">Overdue (3+ days)</div>
+                            <small class="click-hint">Click to view list</small>
+                        </div>
+                        <div class="stat-card clickable-card" data-type="monthly-revenue">
+                            <i class="fas fa-rupee-sign"></i>
+                            <div class="stat-value" id="monthlyRevenue">₹0</div>
+                            <div class="stat-label">This Month Revenue</div>
+                            <small class="click-hint">Click to view payments</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-bell"></i> Today's Alerts</h2>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Due Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="todayAlerts">
+                                <!-- Filled by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-history"></i> Recent Payments</h2>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Payment ID</th>
+                                    <th>Student</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                    <th>Next Due</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentPayments">
+                                <!-- Filled by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Students Tab -->
+            <div class="tab-content" id="students">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h1><i class="fas fa-users"></i> Student Management</h1>
+                        <button class="btn btn-primary" id="addStudentBtn">
+                            <i class="fas fa-user-plus"></i> Add New Student
+                        </button>
+                    </div>
+                    
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Join Date</th>
+                                    <th>Due Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentsTable">
+                                <!-- Filled by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Payments Tab -->
+            <div class="tab-content" id="payments">
+                <div class="card">
+                    <h1><i class="fas fa-rupee-sign"></i> Payment Records</h1>
+                    
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Payment ID</th>
+                                    <th>Date</th>
+                                    <th>Student</th>
+                                    <th>Amount</th>
+                                    <th>Period</th>
+                                    <th>Next Due</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="paymentsTable">
+                                <!-- Filled by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- AI Assistant Tab -->
+            <div class="tab-content" id="ai-assistant">
+                <div class="card">
+                    <h1><i class="fas fa-robot"></i> AI Assistant</h1>
+                    
+                    <div class="ai-features">
+                        <div class="ai-feature-card" data-feature="smart-insights">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Smart Insights</h3>
+                            <p>Get AI-powered analytics about your library performance</p>
+                            <button class="btn btn-primary">Generate Insights</button>
+                        </div>
+                        
+                        <div class="ai-feature-card" data-feature="payment-predictions">
+                            <div class="feature-icon">
+                                <i class="fas fa-crystal-ball"></i>
+                            </div>
+                            <h3>Payment Predictions</h3>
+                            <p>Predict which students might miss payments</p>
+                            <button class="btn btn-primary">Analyze Risk</button>
+                        </div>
+                        
+                        <div class="ai-feature-card" data-feature="auto-reminders">
+                            <div class="feature-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <h3>Smart Reminders</h3>
+                            <p>Generate personalized payment reminders</p>
+                            <button class="btn btn-primary">Create Reminders</button>
+                        </div>
+                        
+                        <div class="ai-feature-card" data-feature="revenue-forecast">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <h3>Revenue Forecast</h3>
+                            <p>Predict future revenue trends</p>
+                            <button class="btn btn-primary">Generate Forecast</button>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-section" id="chatContainer">
+                        <h2><i class="fas fa-comments"></i> AI Chat Assistant</h2>
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="ai-message">
+                                <div class="message-avatar">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="message-content">
+                                    <p>Hello! I'm your AI assistant. Ask me anything about your library data, revenue analysis, or student management. I can help in both English and Hindi!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input-container">
+                            <input type="text" id="chatInput" placeholder="Ask me anything about your library...">
+                            <button id="sendChatBtn"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                        <div class="quick-questions">
+                            <button class="quick-question" data-question="November 2024 revenue kitna tha?">Nov Revenue</button>
+                            <button class="quick-question" data-question="Overdue students kaun hain?">Overdue Students</button>
+                            <button class="quick-question" data-question="Marketing tips chahiye">Marketing Tips</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Settings Tab -->
+            <div class="tab-content" id="settings">
+                <div class="card">
+                    <h1><i class="fas fa-cog"></i> Library Settings</h1>
+                    
+                    <form id="settingsForm">
+                        <div class="form-group">
+                            <label for="libraryName">Library Name</label>
+                            <input type="text" id="libraryName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="membershipFee">Default Membership Fee (₹)</label>
+                            <input type="number" id="membershipFee" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dueDay">Payment Due Day (1-31)</label>
+                            <input type="number" id="dueDay" min="1" max="31" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="notificationDays">Notification Days Before Due</label>
+                            <input type="number" id="notificationDays" min="1" max="10" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="aiMode">AI Assistant Mode</label>
+                            <select id="aiMode">
+                                <option value="online">General Knowledge (Online)</option>
+                                <option value="offline">Library Only (Offline)</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Settings
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Student Modal -->
+    <div class="modal" id="studentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="studentModalTitle"><i class="fas fa-user-plus"></i> Add New Student</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form id="studentForm">
+                <input type="hidden" id="studentIdToEdit">
+                
+                <div class="form-group">
+                    <label for="studentName">Full Name *</label>
+                    <input type="text" id="studentName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="studentPhone">Phone Number *</label>
+                    <input type="tel" id="studentPhone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="studentEmail">Email Address</label>
+                    <input type="email" id="studentEmail">
+                </div>
+                
+                <div class="form-group">
+                    <label for="joinDate">Join Date *</label>
+                    <input type="date" id="joinDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="firstDueDate">First Due Date *</label>
+                    <input type="date" id="firstDueDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="initialAmount">Monthly Amount (₹) *</label>
+                    <input type="number" id="initialAmount" required>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancelStudentForm" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" id="saveStudentBtn" class="btn btn-primary">Save Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-rupee-sign"></i> Record Payment</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form id="paymentForm">
+                <input type="hidden" id="paymentStudentId">
+                
+                <div class="form-group">
+                    <label>Student Name</label>
+                    <div class="student-name-display" id="paymentStudentName">Loading...</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="paymentAmount">Amount (₹) *</label>
+                    <input type="number" id="paymentAmount" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="paymentDate">Payment Date *</label>
+                    <input type="date" id="paymentDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="paymentPeriod">Payment Period *</label>
+                    <input type="text" id="paymentPeriod" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="paymentMethod">Payment Method *</label>
+                    <select id="paymentMethod" required>
+                        <option value="Cash">Cash</option>
+                        <option value="UPI">UPI</option>
+                        <option value="Card">Card</option>
+                        <option value="Net Banking">Net Banking</option>
+                        <option value="Cheque">Cheque</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancelPayment" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Record Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="detailModalTitle">Details</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="detailContent">
+                    <!-- Content filled by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationMessage">Success!</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

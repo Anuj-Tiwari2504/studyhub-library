@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <title>Payment - StudyHub Library</title>
+    
+    <!-- Enhanced Mobile Meta Tags -->
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="format-detection" content="address=yes">
+    <meta name="format-detection" content="email=yes">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="width">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="librarystyle.css">
+    <style>
+        body { 
+            padding-top: 80px; 
+            background: #f8fafc;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        .payment-container { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+        .payment-header { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; text-align: center; }
+        .payment-content { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .order-summary { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .payment-form { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .summary-item { display: flex; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e5e7eb; }
+        .total-amount { font-size: 1.5rem; font-weight: bold; color: #2563eb; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: bold; color: #333; }
+        .form-group input, .form-group select { 
+            width: 100%; 
+            padding: 12px; 
+            border: 2px solid #e5e7eb; 
+            border-radius: 8px; 
+            font-size: 16px;
+            -webkit-appearance: none;
+            background-color: #fff;
+        }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #2563eb; }
+        .payment-methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .payment-method { 
+            padding: 1rem; 
+            border: 2px solid #e5e7eb; 
+            border-radius: 8px; 
+            text-align: center; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            min-height: 44px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(37, 99, 235, 0.2);
+        }
+        .payment-method.active { border-color: #2563eb; background: #eff6ff; }
+        .payment-method i { font-size: 2rem; margin-bottom: 0.5rem; color: #2563eb; }
+        .btn-pay { 
+            width: 100%; 
+            padding: 15px; 
+            background: #10b981; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 18px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+        .btn-pay:hover { background: #059669; transform: translateY(-2px); }
+        
+        /* Enhanced Mobile Optimizations */
+        @media (max-width: 768px) {
+            body { padding-top: 70px; }
+            
+            .payment-content { grid-template-columns: 1fr; gap: 1.5rem; }
+            .payment-container { margin: 1rem; padding: 0 0.5rem; }
+            
+            .payment-header {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .payment-header h1 {
+                font-size: 1.5rem;
+                line-height: 1.2;
+            }
+            
+            .order-summary, .payment-form {
+                padding: 1.5rem;
+                margin: 0 5px;
+            }
+            
+            .form-group input, .form-group select {
+                font-size: 16px !important;
+                padding: 12px;
+                -webkit-appearance: none;
+                border-radius: 8px;
+            }
+            
+            .payment-methods {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+            
+            .payment-method {
+                padding: 0.8rem;
+                min-height: 44px;
+            }
+            
+            .payment-method i {
+                font-size: 1.5rem;
+            }
+            
+            .total-amount {
+                font-size: 1.2rem;
+            }
+            
+            .btn-pay {
+                font-size: 16px;
+                padding: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .payment-container {
+                margin: 0.5rem;
+                padding: 0 0.25rem;
+            }
+            
+            .payment-header {
+                padding: 1rem;
+            }
+            
+            .payment-header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .order-summary, .payment-form {
+                padding: 1rem;
+                margin: 0;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .form-group {
+                margin-bottom: 1rem;
+            }
+        }
+        
+        /* Tablet Optimizations */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .payment-container {
+                max-width: 700px;
+            }
+            
+            .payment-methods {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* iOS Safari input styling */
+        input[type="text"], input[type="email"], input[type="tel"], select {
+            -webkit-appearance: none;
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+            font-size: 16px !important;
+        }
+        
+        /* Safe area for notched devices */
+        @supports (padding: max(0px)) {
+            .payment-header {
+                padding-left: max(20px, env(safe-area-inset-left));
+                padding-right: max(20px, env(safe-area-inset-right));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <span>StudyHub Library</span>
+                </div>
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Back to Home</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="payment-container">
+        <div class="payment-header">
+            <h1><i class="fas fa-credit-card"></i> Complete Your Payment</h1>
+            <p>Secure payment gateway - Your data is safe with us</p>
+        </div>
+
+        <div class="payment-content">
+            <div class="order-summary">
+                <h2><i class="fas fa-receipt"></i> Order Summary</h2>
+                <div class="summary-item">
+                    <span>Member Name:</span>
+                    <span id="memberName">Loading...</span>
+                </div>
+                <div class="summary-item">
+                    <span>Plan:</span>
+                    <span id="memberPlan">Loading...</span>
+                </div>
+                <div class="summary-item">
+                    <span>Phone:</span>
+                    <span id="memberPhone">Loading...</span>
+                </div>
+                <div class="summary-item">
+                    <span>Student Discount:</span>
+                    <span id="studentDiscount">No</span>
+                </div>
+                <div class="summary-item">
+                    <span class="total-amount">Total Amount:</span>
+                    <span class="total-amount">₹<span id="totalAmount">0</span></span>
+                </div>
+            </div>
+
+            <div class="payment-form">
+                <h2><i class="fas fa-lock"></i> Payment Details</h2>
+                
+                <div class="payment-methods">
+                    <div class="payment-method active" onclick="selectPaymentMethod('card')">
+                        <i class="fas fa-credit-card"></i>
+                        <div>Card</div>
+                    </div>
+                    <div class="payment-method" onclick="selectPaymentMethod('upi')">
+                        <i class="fab fa-google-pay"></i>
+                        <div>UPI</div>
+                    </div>
+                    <div class="payment-method" onclick="selectPaymentMethod('netbanking')">
+                        <i class="fas fa-university"></i>
+                        <div>Net Banking</div>
+                    </div>
+                    <div class="payment-method" onclick="selectPaymentMethod('cash')">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <div>Cash on Library</div>
+                    </div>
+                </div>
+
+                <form id="paymentForm">
+                    <div id="cardDetails">
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" inputmode="numeric" autocomplete="cc-number">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date</label>
+                                <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5" inputmode="numeric" autocomplete="cc-exp">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" placeholder="123" maxlength="3" inputmode="numeric" autocomplete="cc-csc">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardName">Cardholder Name</label>
+                            <input type="text" id="cardName" placeholder="Enter name on card" autocomplete="cc-name" inputmode="text">
+                        </div>
+                    </div>
+
+                    <div id="upiDetails" style="display: none;">
+                        <div class="form-group">
+                            <label for="upiId">UPI ID</label>
+                            <input type="text" id="upiId" placeholder="yourname@paytm" inputmode="email">
+                        </div>
+                    </div>
+
+                    <div id="netbankingDetails" style="display: none;">
+                        <div class="form-group">
+                            <label for="bankSelect">Select Bank</label>
+                            <select id="bankSelect">
+                                <option value="">Choose your bank</option>
+                                <option value="sbi">State Bank of India</option>
+                                <option value="hdfc">HDFC Bank</option>
+                                <option value="icici">ICICI Bank</option>
+                                <option value="axis">Axis Bank</option>
+                                <option value="pnb">Punjab National Bank</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="cashDetails" style="display: none;">
+                        <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2563eb;">
+                            <h3 style="color: #2563eb; margin-bottom: 1rem;"><i class="fas fa-info-circle"></i> Cash Payment Instructions</h3>
+                            <ul style="margin: 0; padding-left: 1.5rem; color: #374151;">
+                                <li>Visit our library within 24 hours</li>
+                                <li>Bring this registration confirmation</li>
+                                <li>Pay the exact amount at reception</li>
+                                <li>Get instant membership activation</li>
+                            </ul>
+                            <div style="margin-top: 1rem; padding: 0.75rem; background: #fef3c7; border-radius: 6px;">
+                                <strong style="color: #92400e;">Note:</strong> <span style="color: #92400e;">Registration will be confirmed after cash payment at library</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-pay">
+                        <i class="fas fa-lock"></i> Pay Securely ₹<span id="payAmount">0</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedPaymentMethod = 'card';
+        
+        // Load registration data
+        window.onload = function() {
+            const registrations = JSON.parse(localStorage.getItem('library_registrations') || '[]');
+            const latestRegistration = registrations[registrations.length - 1];
+            
+            if (latestRegistration) {
+                document.getElementById('memberName').textContent = latestRegistration.fullName;
+                document.getElementById('memberPlan').textContent = latestRegistration.selectedPlan;
+                document.getElementById('memberPhone').textContent = latestRegistration.phone;
+                document.getElementById('studentDiscount').textContent = latestRegistration.studentDiscount ? 'Yes (10% off)' : 'No';
+                document.getElementById('totalAmount').textContent = latestRegistration.totalAmount;
+                document.getElementById('payAmount').textContent = latestRegistration.totalAmount;
+            } else {
+                window.location.href = 'registration.html';
+            }
+        };
+
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method;
+            
+            // Update active state
+            document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('active'));
+            event.target.closest('.payment-method').classList.add('active');
+            
+            // Show/hide relevant forms
+            document.getElementById('cardDetails').style.display = method === 'card' ? 'block' : 'none';
+            document.getElementById('upiDetails').style.display = method === 'upi' ? 'block' : 'none';
+            document.getElementById('netbankingDetails').style.display = method === 'netbanking' ? 'block' : 'none';
+            document.getElementById('cashDetails').style.display = method === 'cash' ? 'block' : 'none';
+            
+            // Update button text
+            const payBtn = document.querySelector('.btn-pay');
+            if (method === 'cash') {
+                payBtn.innerHTML = '<i class="fas fa-check"></i> Confirm Cash Payment';
+            } else {
+                payBtn.innerHTML = '<i class="fas fa-lock"></i> Pay Securely ₹' + document.getElementById('payAmount').textContent;
+            }
+        }
+
+        // Format card number
+        document.getElementById('cardNumber').addEventListener('input', function() {
+            let value = this.value.replace(/\D/g, '');
+            value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+            this.value = value;
+        });
+
+        // Format expiry date
+        document.getElementById('expiryDate').addEventListener('input', function() {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            this.value = value;
+        });
+
+        // Handle payment form submission
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.querySelector('.btn-pay');
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Payment...';
+            submitBtn.disabled = true;
+            
+            // Handle different payment methods
+            if (selectedPaymentMethod === 'cash') {
+                // For cash payment, set status as pending
+                const registrations = JSON.parse(localStorage.getItem('library_registrations') || '[]');
+                const latestRegistration = registrations[registrations.length - 1];
+                if (latestRegistration) {
+                    latestRegistration.paymentStatus = 'pending';
+                    latestRegistration.paymentMethod = 'cash';
+                    localStorage.setItem('library_registrations', JSON.stringify(registrations));
+                    
+                    // Store member data with pending status
+                    const memberData = {
+                        name: latestRegistration.fullName,
+                        phone: latestRegistration.phone,
+                        email: latestRegistration.email,
+                        plan: latestRegistration.selectedPlan,
+                        amount: latestRegistration.totalAmount,
+                        photo: latestRegistration.photo,
+                        paymentStatus: 'pending',
+                        joinDate: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+                        cardNumber: '2024' + Math.floor(Math.random() * 1000).toString().padStart(3, '0'),
+                        validUntil: 'Pending Payment',
+                        points: 0,
+                        referrals: 0,
+                        referralEarnings: 0
+                    };
+                    localStorage.setItem('memberData', JSON.stringify(memberData));
+                }
+                
+                showNotification('Registration confirmed! Please visit library for cash payment.', 'success');
+                setTimeout(() => {
+                    window.location.href = 'member-dashboard.html';
+                }, 2000);
+            } else {
+                // For online payments, process normally
+                setTimeout(() => {
+                    const registrations = JSON.parse(localStorage.getItem('library_registrations') || '[]');
+                    const latestRegistration = registrations[registrations.length - 1];
+                    if (latestRegistration) {
+                        latestRegistration.paymentStatus = 'completed';
+                        latestRegistration.paymentMethod = selectedPaymentMethod;
+                        localStorage.setItem('library_registrations', JSON.stringify(registrations));
+                        
+                        // Store member data with completed status
+                        const memberData = {
+                            name: latestRegistration.fullName,
+                            phone: latestRegistration.phone,
+                            email: latestRegistration.email,
+                            plan: latestRegistration.selectedPlan,
+                            amount: latestRegistration.totalAmount,
+                            photo: latestRegistration.photo,
+                            paymentStatus: 'completed',
+                            joinDate: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+                            cardNumber: '2024' + Math.floor(Math.random() * 1000).toString().padStart(3, '0'),
+                            validUntil: new Date(Date.now() + 365*24*60*60*1000).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+                            points: 0,
+                            referrals: 0,
+                            referralEarnings: 0
+                        };
+                        localStorage.setItem('memberData', JSON.stringify(memberData));
+                    }
+                    
+                    showNotification('Payment successful! Redirecting to dashboard...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'member-dashboard.html';
+                    }, 2000);
+                }, 3000);
+            }
+        });
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed; top: 20px; right: 20px; z-index: 10000;
+                padding: 1rem 1.5rem; border-radius: 8px; color: white; font-weight: bold;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => document.body.removeChild(notification), 4000);
+        }
+    </script>
+</body>
+</html>

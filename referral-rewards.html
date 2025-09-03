@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referral Rewards - StudyHub Library</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="librarystyle.css">
+    <style>
+        body { padding-top: 80px; background: linear-gradient(135deg, #f59e0b, #d97706); min-height: 100vh; }
+        .referral-container { max-width: 800px; margin: 2rem auto; padding: 2rem; }
+        .referral-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); margin-bottom: 2rem; text-align: center; }
+        .referral-code { background: #f3f4f6; padding: 1rem; border-radius: 10px; font-family: monospace; font-size: 1.5rem; font-weight: bold; margin: 1rem 0; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 2rem 0; }
+        .stat-item { background: #eff6ff; padding: 1.5rem; border-radius: 10px; text-align: center; }
+        .share-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
+        .share-btn { background: #2563eb; color: white; border: none; padding: 1rem 1.5rem; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; }
+        @media (max-width: 768px) { .referral-container { padding: 1rem; } .share-buttons { flex-direction: column; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo"><i class="fas fa-book-open"></i><span>StudyHub Library</span></div>
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="member-dashboard.html" class="nav-link">Dashboard</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="referral-container">
+        <div class="referral-card">
+            <h1><i class="fas fa-gift"></i> Referral Rewards</h1>
+            <p>Refer friends and earn ₹50 for each successful referral!</p>
+            
+            <div class="referral-code" id="referralCode">SHUB2024001</div>
+            <button onclick="copyCode()" style="background: #10b981; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer;">
+                <i class="fas fa-copy"></i> Copy Code
+            </button>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div style="font-size: 2rem; font-weight: bold; color: #2563eb;">3</div>
+                    <div>Referrals</div>
+                </div>
+                <div class="stat-item">
+                    <div style="font-size: 2rem; font-weight: bold; color: #10b981;">₹150</div>
+                    <div>Earned</div>
+                </div>
+            </div>
+
+            <div class="share-buttons">
+                <button class="share-btn" onclick="shareWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </button>
+                <button class="share-btn" onclick="shareFacebook()">
+                    <i class="fab fa-facebook"></i> Facebook
+                </button>
+                <button class="share-btn" onclick="shareTwitter()">
+                    <i class="fab fa-twitter"></i> Twitter
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyCode() {
+            navigator.clipboard.writeText(document.getElementById('referralCode').textContent);
+            alert('Referral code copied!');
+        }
+        function shareWhatsApp() {
+            const code = document.getElementById('referralCode').textContent;
+            window.open(`https://wa.me/?text=Join StudyHub Library with my referral code: ${code}`);
+        }
+        function shareFacebook() { alert('Share on Facebook coming soon!'); }
+        function shareTwitter() { alert('Share on Twitter coming soon!'); }
+    </script>
+</body>
+</html>

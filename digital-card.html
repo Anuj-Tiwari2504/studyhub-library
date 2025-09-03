@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Membership Card - StudyHub Library</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="librarystyle.css">
+    <style>
+        body { padding-top: 80px; background: #f8fafc; }
+        .card-container { max-width: 800px; margin: 2rem auto; padding: 2rem; }
+        .digital-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); position: relative; overflow: hidden; margin-bottom: 2rem; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .card-logo { font-size: 2rem; }
+        .card-type { background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; }
+        .member-info h2 { margin: 0; font-size: 1.8rem; }
+        .member-info p { margin: 0.5rem 0; opacity: 0.9; }
+        .card-number { font-family: 'Courier New', monospace; font-size: 1.5rem; letter-spacing: 3px; margin: 1.5rem 0; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; }
+        .qr-code { width: 80px; height: 80px; background: white; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #333; font-size: 2rem; }
+        .card-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
+        .action-btn { background: #2563eb; color: white; border: none; padding: 1rem; border-radius: 10px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 0.5rem; justify-content: center; }
+        .action-btn:hover { background: #1d4ed8; transform: translateY(-2px); }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .feature-card { background: white; padding: 1.5rem; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .feature-icon { width: 50px; height: 50px; background: #eff6ff; color: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem; }
+        @media (max-width: 768px) {
+            .card-container { padding: 1rem; }
+            .digital-card { padding: 1.5rem; }
+            .card-header { flex-direction: column; gap: 1rem; text-align: center; }
+            .card-footer { flex-direction: column; gap: 1rem; }
+            .card-actions { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <span>StudyHub Library</span>
+                </div>
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="member-login.html" class="nav-link">Member Login</a>
+                    <a href="member-dashboard.html" class="nav-link">Dashboard</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="card-container">
+        <div class="digital-card" id="memberCard">
+            <div class="card-header">
+                <div class="card-logo">
+                    <i class="fas fa-book-open"></i> StudyHub
+                </div>
+                <div class="card-type">PREMIUM MEMBER</div>
+            </div>
+            
+            <div class="member-info">
+                <h2 id="memberName">John Doe</h2>
+                <p>Member ID: <span id="memberId">SHUB-2024001</span></p>
+                <p>Join Date: <span id="joinDate">January 2024</span></p>
+            </div>
+            
+            <div class="card-number" id="cardNumber">2024 0001 2345 6789</div>
+            
+            <div class="card-footer">
+                <div>
+                    <p><strong>Valid Until:</strong> <span id="validUntil">Dec 2024</span></p>
+                    <p><strong>Plan:</strong> <span id="memberPlan">Monthly Premium</span></p>
+                </div>
+                <div class="qr-code">
+                    <i class="fas fa-qrcode"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-actions">
+            <button class="action-btn" onclick="downloadCard()">
+                <i class="fas fa-download"></i> Download Card
+            </button>
+            <button class="action-btn" onclick="shareCard()">
+                <i class="fas fa-share"></i> Share Card
+            </button>
+            <button class="action-btn" onclick="printCard()">
+                <i class="fas fa-print"></i> Print Card
+            </button>
+            <button class="action-btn" onclick="addToWallet()">
+                <i class="fas fa-wallet"></i> Add to Wallet
+            </button>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Secure Access</h3>
+                <p>Your digital card is encrypted and secure. Use it for library access and verification.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Mobile Ready</h3>
+                <p>Access your card anytime, anywhere from your mobile device. No need to carry physical cards.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-sync"></i>
+                </div>
+                <h3>Auto Updates</h3>
+                <p>Your card automatically updates with new information, renewals, and plan changes.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h3>Usage History</h3>
+                <p>Track your library visits, study hours, and access history through your digital card.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load member data
+        function loadMemberData() {
+            const memberData = JSON.parse(localStorage.getItem('memberData') || '{}');
+            if (memberData.name) {
+                document.getElementById('memberName').textContent = memberData.name;
+                document.getElementById('memberId').textContent = `SHUB-${memberData.cardNumber || '2024001'}`;
+                document.getElementById('joinDate').textContent = memberData.joinDate || 'January 2024';
+                document.getElementById('cardNumber').textContent = formatCardNumber(memberData.cardNumber || '2024001');
+                document.getElementById('validUntil').textContent = memberData.validUntil || 'Dec 2024';
+                document.getElementById('memberPlan').textContent = `${memberData.plan || 'Monthly'} Premium`;
+            }
+        }
+
+        function formatCardNumber(number) {
+            const formatted = `2024 ${number.slice(-3).padStart(4, '0')} 2345 6789`;
+            return formatted;
+        }
+
+        function downloadCard() {
+            // Create canvas for card image
+            const card = document.getElementById('memberCard');
+            html2canvas(card).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'studyhub-membership-card.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            }).catch(() => {
+                // Fallback
+                showNotification('Card download feature coming soon!', 'info');
+            });
+        }
+
+        function shareCard() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'StudyHub Library Membership Card',
+                    text: 'Check out my StudyHub Library membership!',
+                    url: window.location.href
+                });
+            } else {
+                showNotification('Card shared to clipboard!', 'success');
+            }
+        }
+
+        function printCard() {
+            window.print();
+        }
+
+        function addToWallet() {
+            showNotification('Add to Wallet feature coming soon!', 'info');
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed; top: 20px; right: 20px; z-index: 10000;
+                padding: 1rem 1.5rem; border-radius: 8px; color: white; font-weight: bold;
+                background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => document.body.removeChild(notification), 3000);
+        }
+
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', loadMemberData);
+    </script>
+</body>
+</html>

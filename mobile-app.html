@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile App Access - StudyHub Library</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="librarystyle.css">
+    <style>
+        body { padding-top: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .app-container { max-width: 1000px; margin: 2rem auto; padding: 2rem; }
+        .app-hero { background: white; padding: 3rem; border-radius: 20px; text-align: center; margin-bottom: 2rem; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .download-buttons { display: flex; gap: 1rem; justify-content: center; margin: 2rem 0; flex-wrap: wrap; }
+        .download-btn { background: #000; color: white; padding: 1rem 2rem; border-radius: 15px; text-decoration: none; display: flex; align-items: center; gap: 1rem; transition: all 0.3s; }
+        .download-btn:hover { transform: translateY(-3px); }
+        .download-btn.android { background: #34a853; }
+        @media (max-width: 768px) { .app-container { padding: 1rem; } .download-buttons { flex-direction: column; align-items: center; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo"><i class="fas fa-book-open"></i><span>StudyHub Library</span></div>
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="member-dashboard.html" class="nav-link">Dashboard</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="app-container">
+        <div class="app-hero">
+            <div style="width: 120px; height: 120px; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 25px; margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white;">
+                <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h1>StudyHub Mobile App</h1>
+            <p>Access all library features on the go!</p>
+            
+            <div class="download-buttons">
+                <a href="#" class="download-btn android" onclick="downloadApp('android')">
+                    <i class="fab fa-google-play" style="font-size: 2rem;"></i>
+                    <div><div style="font-size: 0.8rem;">Get it on</div><div style="font-size: 1.2rem; font-weight: bold;">Google Play</div></div>
+                </a>
+                <a href="#" class="download-btn" onclick="downloadApp('ios')">
+                    <i class="fab fa-apple" style="font-size: 2rem;"></i>
+                    <div><div style="font-size: 0.8rem;">Download on the</div><div style="font-size: 1.2rem; font-weight: bold;">App Store</div></div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function downloadApp(platform) {
+            alert(`${platform === 'android' ? 'Android' : 'iOS'} app coming soon!`);
+        }
+    </script>
+</body>
+</html>

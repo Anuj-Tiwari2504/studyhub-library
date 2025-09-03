@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <title>Live Chat - StudyHub Library</title>
+    
+    <!-- Enhanced Mobile Meta Tags -->
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="format-detection" content="address=yes">
+    <meta name="format-detection" content="email=yes">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="width">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="librarystyle.css">
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-text-size-adjust: 100%;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .chat-container {
+            max-width: 800px;
+            margin: 100px auto 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-header {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8fafc;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .message.user {
+            flex-direction: row-reverse;
+        }
+        
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+        }
+        
+        .message.user .message-avatar {
+            background: #2563eb;
+        }
+        
+        .message.ai .message-avatar {
+            background: #10b981;
+        }
+        
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+        }
+        
+        .message.user .message-content {
+            background: #2563eb;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .message.ai .message-content {
+            background: white;
+            color: #333;
+            border: 1px solid #e5e7eb;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .chat-input {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 25px;
+            outline: none;
+            font-size: 16px;
+            -webkit-appearance: none;
+            background-color: #fff;
+        }
+        
+        .chat-input button {
+            padding: 12px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            min-height: 44px;
+            min-width: 44px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(37, 99, 235, 0.2);
+        }
+        
+        .chat-input button:hover {
+            background: #1d4ed8;
+        }
+        
+        .typing-indicator {
+            display: none;
+            padding: 10px 16px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            max-width: 70px;
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            background: #9ca3af;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        /* Enhanced Mobile Optimizations */
+        @media (max-width: 768px) {
+            .chat-container {
+                margin: 80px 10px 10px;
+                height: calc(100vh - 100px);
+                border-radius: 12px;
+            }
+            
+            .chat-header {
+                padding: 15px;
+            }
+            
+            .chat-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .chat-messages {
+                padding: 15px;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .message-content {
+                max-width: 85%;
+                font-size: 0.9rem;
+            }
+            
+            .message-avatar {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            
+            .chat-input {
+                padding: 15px;
+            }
+            
+            .chat-input input {
+                font-size: 16px !important;
+                padding: 12px 14px;
+            }
+            
+            .chat-input button {
+                padding: 12px 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .chat-container {
+                margin: 70px 5px 5px;
+                height: calc(100vh - 80px);
+                border-radius: 10px;
+            }
+            
+            .chat-header {
+                padding: 12px;
+            }
+            
+            .chat-header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .chat-header p {
+                font-size: 0.9rem;
+            }
+            
+            .chat-messages {
+                padding: 12px;
+            }
+            
+            .message {
+                margin-bottom: 12px;
+            }
+            
+            .message-content {
+                max-width: 90%;
+                font-size: 0.85rem;
+                padding: 10px 14px;
+            }
+            
+            .message-avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+            
+            .chat-input {
+                padding: 12px;
+            }
+            
+            .chat-input input {
+                padding: 10px 12px;
+            }
+            
+            .chat-input button {
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+        }
+        
+        /* Tablet Optimizations */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .chat-container {
+                max-width: 700px;
+                margin: 90px auto 20px;
+            }
+        }
+        
+        /* iOS Safari input styling */
+        input[type="text"] {
+            -webkit-appearance: none;
+            -webkit-border-radius: 25px;
+            border-radius: 25px;
+            font-size: 16px !important;
+        }
+        
+        /* Safe area for notched devices */
+        @supports (padding: max(0px)) {
+            .chat-container {
+                margin-left: max(10px, env(safe-area-inset-left));
+                margin-right: max(10px, env(safe-area-inset-right));
+            }
+        }
+        
+        /* Smooth scrolling */
+        .chat-messages {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <span>StudyHub Library</span>
+                </div>
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Back to Home</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2><i class="fas fa-robot"></i> StudyHub AI Assistant</h2>
+            <p>Ask me anything about our library, facilities, or study tips!</p>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message ai">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    Hello! I'm your StudyHub AI assistant. I can help you with:
+                    <br>• Library facilities and timings
+                    <br>• Membership plans and pricing
+                    <br>• Study tips and techniques
+                    <br>• Seat availability
+                    <br>• General inquiries
+                    <br><br>How can I assist you today?
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="Type your message..." maxlength="500" autocomplete="off" inputmode="text">
+            <button onclick="sendMessage()" role="button" aria-label="Send message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="chat.js"></script>
+</body>
+</html>

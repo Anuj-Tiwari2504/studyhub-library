@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loyalty Points - StudyHub Library</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="librarystyle.css">
+    <style>
+        body { padding-top: 80px; background: linear-gradient(135deg, #8b5cf6, #7c3aed); min-height: 100vh; }
+        .points-container { max-width: 800px; margin: 2rem auto; padding: 2rem; }
+        .points-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); margin-bottom: 2rem; text-align: center; }
+        .points-display { font-size: 3rem; font-weight: bold; color: #8b5cf6; margin: 1rem 0; }
+        .redeem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
+        .redeem-item { background: #f8fafc; padding: 1.5rem; border-radius: 10px; text-align: center; border: 2px solid #e5e7eb; cursor: pointer; transition: all 0.3s; }
+        .redeem-item:hover { border-color: #8b5cf6; transform: translateY(-2px); }
+        .redeem-btn { background: #8b5cf6; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; margin-top: 1rem; }
+        @media (max-width: 768px) { .points-container { padding: 1rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo"><i class="fas fa-book-open"></i><span>StudyHub Library</span></div>
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="member-dashboard.html" class="nav-link">Dashboard</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="points-container">
+        <div class="points-card">
+            <h1><i class="fas fa-star"></i> Loyalty Points</h1>
+            <div class="points-display" id="totalPoints">1,250</div>
+            <p>Available Points</p>
+            <p style="color: #6b7280;">Earn 10 points for every ₹100 spent</p>
+
+            <div class="redeem-grid">
+                <div class="redeem-item" onclick="redeemPoints(100, 10)">
+                    <h3>₹10 Off</h3>
+                    <p>100 Points</p>
+                    <button class="redeem-btn">Redeem</button>
+                </div>
+                <div class="redeem-item" onclick="redeemPoints(500, 50)">
+                    <h3>₹50 Off</h3>
+                    <p>500 Points</p>
+                    <button class="redeem-btn">Redeem</button>
+                </div>
+                <div class="redeem-item" onclick="redeemPoints(1000, 100)">
+                    <h3>₹100 Off</h3>
+                    <p>1000 Points</p>
+                    <button class="redeem-btn">Redeem</button>
+                </div>
+                <div class="redeem-item" onclick="redeemPoints(2000, 250)">
+                    <h3>₹250 Off</h3>
+                    <p>2000 Points</p>
+                    <button class="redeem-btn">Redeem</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function redeemPoints(required, discount) {
+            const current = parseInt(document.getElementById('totalPoints').textContent.replace(',', ''));
+            if (current >= required) {
+                const newPoints = current - required;
+                document.getElementById('totalPoints').textContent = newPoints.toLocaleString();
+                alert(`Redeemed ₹${discount} discount! New balance: ${newPoints} points`);
+            } else {
+                alert('Insufficient points!');
+            }
+        }
+    </script>
+</body>
+</html>

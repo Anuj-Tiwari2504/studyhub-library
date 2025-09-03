@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <title>Member Dashboard - StudyHub Library</title>
+    
+    <!-- Enhanced Mobile Meta Tags -->
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="format-detection" content="address=yes">
+    <meta name="format-detection" content="email=yes">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="width">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="librarystyle.css">
+    <style>
+        body { 
+            padding: 0; 
+            margin: 0; 
+            background: rgba(0,0,0,0.8); 
+            position: fixed; 
+            width: 100%; 
+            height: 100%; 
+            top: 0; 
+            left: 0; 
+            z-index: 10001; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-text-size-adjust: 100%;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .dashboard-container { 
+            max-width: 800px; 
+            width: 90%; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            background: #f8fafc; 
+            border-radius: 15px; 
+            animation: slideUp 0.3s ease; 
+            padding: 1rem; 
+            position: relative;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .welcome-section { 
+            background: linear-gradient(135deg, #2563eb, #1d4ed8); 
+            color: white; 
+            padding: 2rem; 
+            border-radius: 15px; 
+            margin-bottom: 2rem; 
+            text-align: center; 
+        }
+        
+        .welcome-section h1 { margin-bottom: 0.5rem; }
+        
+        .card-section { 
+            background: white; 
+            padding: 2rem; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
+            margin-bottom: 2rem; 
+        }
+        
+        .digital-card { 
+            background: linear-gradient(135deg, #667eea, #764ba2); 
+            color: white; 
+            padding: 2rem; 
+            border-radius: 15px; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        
+        .digital-card::before { 
+            content: ''; 
+            position: absolute; 
+            top: -50%; 
+            right: -50%; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(255,255,255,0.1); 
+            transform: rotate(45deg); 
+        }
+        
+        .card-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 1.5rem; 
+        }
+        
+        .card-info { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 1rem; 
+        }
+        
+        .info-item { text-align: center; }
+        .info-label { font-size: 0.9rem; opacity: 0.8; margin-bottom: 0.5rem; }
+        .info-value { font-size: 1.1rem; font-weight: bold; }
+        
+        .download-btn { 
+            background: rgba(255,255,255,0.2); 
+            color: white; 
+            border: 2px solid white; 
+            padding: 12px 24px; 
+            border-radius: 25px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: all 0.3s; 
+            display: inline-block; 
+            margin-top: 1rem;
+            min-height: 44px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .download-btn:hover { background: white; color: #667eea; }
+        
+        .back-home-btn { 
+            background: #6b7280; 
+            color: white; 
+            border: none; 
+            padding: 12px 24px; 
+            border-radius: 25px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: all 0.3s; 
+            display: inline-block; 
+            margin-left: 1rem;
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+        
+        .back-home-btn:hover { background: #4b5563; }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Enhanced Mobile Optimizations */
+        @media (max-width: 768px) {
+            .dashboard-container { 
+                width: 95%; 
+                padding: 0.5rem;
+                max-height: 95vh;
+            }
+            
+            .welcome-section {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .welcome-section h1 {
+                font-size: 1.5rem;
+                line-height: 1.2;
+            }
+            
+            .card-section { 
+                padding: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .digital-card {
+                padding: 1.5rem;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .card-info { 
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .info-item {
+                padding: 0.5rem;
+                background: rgba(255,255,255,0.1);
+                border-radius: 8px;
+            }
+            
+            .download-btn {
+                width: 100%;
+                text-align: center;
+                padding: 14px 20px;
+                font-size: 16px;
+            }
+            
+            .back-home-btn { 
+                margin-left: 0; 
+                margin-top: 1rem; 
+                display: block; 
+                text-align: center;
+                width: 100%;
+                padding: 14px 20px;
+            }
+            
+            .close-dashboard {
+                width: 40px !important;
+                height: 40px !important;
+                font-size: 18px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .dashboard-container {
+                width: 98%;
+                padding: 0.25rem;
+                border-radius: 10px;
+            }
+            
+            .welcome-section {
+                padding: 1rem;
+            }
+            
+            .welcome-section h1 {
+                font-size: 1.3rem;
+            }
+            
+            .card-section {
+                padding: 1rem;
+            }
+            
+            .digital-card {
+                padding: 1rem;
+            }
+            
+            .card-header h3 {
+                font-size: 1.2rem;
+            }
+            
+            .info-value {
+                font-size: 1rem;
+            }
+            
+            .download-btn {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+        }
+        
+        /* Tablet Optimizations */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .dashboard-container {
+                max-width: 700px;
+            }
+            
+            .card-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Safe area for notched devices */
+        @supports (padding: max(0px)) {
+            .dashboard-container {
+                padding-left: max(1rem, env(safe-area-inset-left));
+                padding-right: max(1rem, env(safe-area-inset-right));
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="dashboard-container">
+        <button class="close-dashboard" onclick="closeDashboard()" style="position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.9); color: #666; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; z-index: 20; box-shadow: 0 2px 8px rgba(0,0,0,0.2); touch-action: manipulation; -webkit-tap-highlight-color: rgba(102, 102, 102, 0.2);">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="welcome-section">
+            <h1>🎉 Welcome to StudyHub Library!</h1>
+            <p>Your membership has been activated successfully</p>
+        </div>
+
+        <div class="card-section">
+            <h2><i class="fas fa-id-card"></i> Your Digital Membership Card</h2>
+            
+            <div class="digital-card">
+                <div class="card-header">
+                    <div>
+                        <h3>StudyHub Library</h3>
+                        <p>Digital Membership Card</p>
+                    </div>
+                    <div class="member-photo" id="memberPhoto" style="width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                
+                <div class="card-info">
+                    <div class="info-item">
+                        <div class="info-label">Member Name</div>
+                        <div class="info-value" id="memberName">Loading...</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Card Number</div>
+                        <div class="info-value" id="cardNumber">Loading...</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Plan</div>
+                        <div class="info-value" id="memberPlan">Loading...</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Status</div>
+                        <div class="info-value" id="paymentStatus" style="color: #f59e0b;">Loading...</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Valid Until</div>
+                        <div class="info-value" id="validUntil">Loading...</div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="#" class="download-btn" onclick="downloadCard()" id="downloadBtn">
+                        <i class="fas fa-download"></i> Download Digital Card
+                    </a>
+                    <div id="pendingMessage" style="display: none; background: #fef3c7; color: #92400e; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <i class="fas fa-clock"></i> Please complete cash payment at library to activate your membership
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load member data
+        window.onload = function() {
+            const memberData = JSON.parse(localStorage.getItem('memberData') || '{}');
+            
+            if (memberData.name) {
+                document.getElementById('memberName').textContent = memberData.name;
+                document.getElementById('cardNumber').textContent = memberData.cardNumber || 'N/A';
+                document.getElementById('memberPlan').textContent = memberData.plan || 'N/A';
+                document.getElementById('validUntil').textContent = memberData.validUntil || 'N/A';
+                
+                // Load member photo if available
+                if (memberData.photo) {
+                    const photoDiv = document.getElementById('memberPhoto');
+                    photoDiv.innerHTML = `<img src="${memberData.photo}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" alt="Member Photo">`;
+                }
+                
+                // Show payment status
+                const statusElement = document.getElementById('paymentStatus');
+                if (memberData.paymentStatus === 'pending') {
+                    statusElement.textContent = 'Pending Payment';
+                    statusElement.style.color = '#f59e0b';
+                    document.getElementById('downloadBtn').style.display = 'none';
+                    document.getElementById('pendingMessage').style.display = 'block';
+                } else {
+                    statusElement.textContent = 'Active';
+                    statusElement.style.color = '#10b981';
+                }
+            } else {
+                // Redirect to registration if no data
+                window.location.href = 'registration.html';
+            }
+        };
+        
+        function closeDashboard() {
+            window.location.href = 'index.html';
+        }
+
+        function downloadCard() {
+            const memberData = JSON.parse(localStorage.getItem('memberData') || '{}');
+            
+            // Create canvas for card
+            const canvas = document.createElement('canvas');
+            canvas.width = 800;
+            canvas.height = 500;
+            const ctx = canvas.getContext('2d');
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add member photo if available
+            if (memberData.photo) {
+                const img = new Image();
+                img.onload = function() {
+                    // Draw photo
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(650, 100, 60, 0, Math.PI * 2);
+                    ctx.clip();
+                    ctx.drawImage(img, 590, 40, 120, 120);
+                    ctx.restore();
+                    
+                    // Draw card content
+                    drawCardContent();
+                };
+                img.src = memberData.photo;
+            } else {
+                drawCardContent();
+            }
+            
+            function drawCardContent() {
+                // Card content
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 32px Arial';
+                ctx.fillText('StudyHub Library', 50, 80);
+                
+                ctx.font = '20px Arial';
+                ctx.fillText('Digital Membership Card', 50, 120);
+                
+                ctx.font = 'bold 24px Arial';
+                ctx.fillText('Name: ' + (memberData.name || 'N/A'), 50, 200);
+                ctx.fillText('Card No: ' + (memberData.cardNumber || 'N/A'), 50, 250);
+                ctx.fillText('Plan: ' + (memberData.plan || 'N/A'), 50, 300);
+                ctx.fillText('Valid Until: ' + (memberData.validUntil || 'N/A'), 50, 350);
+                
+                // Download
+                const link = document.createElement('a');
+                link.download = 'StudyHub_Membership_Card.png';
+                link.href = canvas.toDataURL();
+                link.click();
+                
+                // Show success message
+                showNotification('Digital card downloaded successfully!', 'success');
+            }
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed; top: 20px; right: 20px; z-index: 10000;
+                padding: 1rem 1.5rem; border-radius: 8px; color: white; font-weight: bold;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => document.body.removeChild(notification), 4000);
+        }
+    </script>
+</body>
+</html>

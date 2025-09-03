@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <title>StudyHub Library - Best Study Center in Your City</title>
+    <meta name="description" content="Join StudyHub Library - Premium study center with AC, WiFi, books and peaceful environment. Affordable membership plans starting ₹50/day.">
+    
+    <!-- Enhanced Mobile Meta Tags -->
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="format-detection" content="address=yes">
+    <meta name="format-detection" content="email=yes">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="width">
+    
+    <!-- Mobile & PWA Meta Tags -->
+    <meta name="theme-color" content="#2563eb">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="StudyHub Library">
+    <meta name="application-name" content="StudyHub Library">
+    
+    <!-- Icons for different devices -->
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/2232/2232688.png">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2232/2232688.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://cdn-icons-png.flaticon.com/512/2232/2232688.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn-icons-png.flaticon.com/512/2232/2232688.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="https://cdn-icons-png.flaticon.com/512/2232/2232688.png">
+    
+    <!-- Android Chrome -->
+    <link rel="icon" type="image/png" sizes="192x192" href="https://cdn-icons-png.flaticon.com/512/2232/2232688.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="https://cdn-icons-png.flaticon.com/512/2232/2232688.png">
+    
+    <!-- Microsoft Tiles -->
+    <meta name="msapplication-TileColor" content="#2563eb">
+    <meta name="msapplication-TileImage" content="https://cdn-icons-png.flaticon.com/512/2232/2232688.png">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="librarystyle.css">
+    <link rel="stylesheet" href="mobile-optimizations.css">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiU3R1ZHlIdWIgTGlicmFyeSIsInNob3J0X25hbWUiOiJTdHVkeUh1YiIsImRlc2NyaXB0aW9uIjoiUHJlbWl1bSBzdHVkeSBjZW50ZXIgd2l0aCBBQywgV2lGaSwgYm9va3MgYW5kIHBlYWNlZnVsIGVudmlyb25tZW50IiwiaWNvbnMiOlt7InNyYyI6Imh0dHBzOi8vY2RuLWljb25zLXBuZy5mbGF0aWNvbi5jb20vNTEyLzIyMzIvMjIzMjY4OC5wbmciLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn0seyJzcmMiOiJodHRwczovL2Nkbi1pY29ucy1wbmcuZmxhdGljb24uY29tLzUxMi8yMjMyLzIyMzI2ODgucG5nIiwic2l6ZXMiOiI1MTJ4NTEyIiwidHlwZSI6ImltYWdlL3BuZyJ9XSwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwidGhlbWVfY29sb3IiOiIjMjU2M2ViIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmZmZmZmYifQ==">
+    <style>
+        .admin-links {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .admin-links a {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .admin-links a:hover {
+            text-decoration: underline;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            right: 15px;
+            top: 10px;
+        }
+        .close:hover {
+            color: black;
+            cursor: pointer;
+        }
+        .modal h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .modal .form-group {
+            margin-bottom: 15px;
+        }
+        .modal label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .modal .btn {
+            width: 100%;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .modal .btn:hover {
+            background: #1d4ed8;
+        }
+        
+        /* Enhanced Mobile Optimizations */
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 5% auto;
+                padding: 20px;
+                width: 95%;
+                max-height: 90vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .modal input, .modal .btn {
+                font-size: 16px !important;
+                padding: 12px;
+                border-radius: 8px;
+            }
+            
+            .btn, button {
+                min-height: 44px;
+                min-width: 44px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: rgba(37, 99, 235, 0.2);
+            }
+            
+            .nav-link, .facility-card, .plan-card {
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: rgba(37, 99, 235, 0.1);
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .modal-content {
+                max-width: 500px;
+            }
+        }
+        
+        /* iOS Safari zoom prevention */
+        input[type="text"], input[type="email"], input[type="tel"], 
+        input[type="number"], input[type="password"], textarea, select {
+            font-size: 16px !important;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        
+        /* Android Chrome input styling */
+        @media screen and (-webkit-min-device-pixel-ratio: 0) {
+            input, textarea, select {
+                font-size: 16px !important;
+            }
+        }
+        
+        /* Enhanced Mobile Hero Optimizations */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 100vh;
+                padding-top: 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem !important;
+                line-height: 1.2 !important;
+            }
+            
+            .hero p {
+                font-size: 1rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            .hero-stats {
+                gap: 1rem !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+            }
+            
+            .stat {
+                min-width: 100px !important;
+                padding: 0.8rem !important;
+                touch-action: manipulation;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem !important;
+            }
+            
+            .hero-buttons {
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 1rem !important;
+            }
+            
+            .hero-buttons a {
+                width: 200px !important;
+                text-align: center !important;
+                min-height: 44px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+        }
+        
+        /* Tablet Hero Optimizations */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3rem !important;
+            }
+            
+            .hero-stats {
+                gap: 1.5rem !important;
+            }
+        }
+        
+        /* Chat Widget Styles */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .chat-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .chat-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(37, 99, 235, 0.4);
+        }
+        
+        .chat-pulse {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        /* Safe area for notched devices */
+        @supports (padding: max(0px)) {
+            .header {
+                padding-left: max(20px, env(safe-area-inset-left));
+                padding-right: max(20px, env(safe-area-inset-right));
+            }
+            
+            .hero {
+                padding-left: max(20px, env(safe-area-inset-left));
+                padding-right: max(20px, env(safe-area-inset-right));
+            }
+        }
+        
+        /* Smooth scrolling for mobile */
+        html {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Prevent horizontal scroll */
+        body {
+            overflow-x: hidden;
+            position: relative;
+        }
+    </style>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
+    <link rel="preload" href="librarystyle.css" as="style">
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//cdn-icons-png.flaticon.com">
+    
+    <!-- Mobile Enhancement Script -->
+    <script src="mobile-enhancements.js" defer></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <span>StudyHub Library</span>
+                </div>
+                <div class="nav-menu" id="navMenu">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#facilities" class="nav-link">Facilities</a>
+                    <a href="#plans" class="nav-link">Plans</a>
+                    <a href="#gallery" class="nav-link">Gallery</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                    <a href="#" class="nav-link" onclick="openAdminModal()">Admin</a>
+                    <a href="registration.html" class="nav-link btn-register">Join Now</a>
+                </div>
+                <div class="hamburger" id="hamburger" role="button" aria-label="Toggle navigation menu" tabindex="0">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200') center/cover no-repeat; min-height: 100vh; display: flex; align-items: center; color: white; position: relative;">
+        <div class="hero-content" style="max-width: 1200px; margin: 0 auto; padding: 2rem; text-align: center; z-index: 2;">
+            <h1 style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">Your Success Starts Here</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Premium study environment with all modern facilities. Join 500+ successful students!</p>
+            
+            <div class="hero-stats" style="display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; flex-wrap: wrap;">
+                <div class="stat" style="text-align: center; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 10px; backdrop-filter: blur(10px); min-width: 120px;">
+                    <span class="stat-number" style="display: block; font-size: 2rem; font-weight: bold; color: #fbbf24;">500+</span>
+                    <span class="stat-label" style="font-size: 0.9rem; color: white;">Happy Students</span>
+                </div>
+                <div class="stat" style="text-align: center; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 10px; backdrop-filter: blur(10px); min-width: 120px;">
+                    <span class="stat-number" style="display: block; font-size: 2rem; font-weight: bold; color: #fbbf24;">6+</span>
+                    <span class="stat-label" style="font-size: 0.9rem; color: white;">Years Experience</span>
+                </div>
+                <div class="stat" style="text-align: center; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 10px; backdrop-filter: blur(10px); min-width: 120px; cursor: pointer; transition: all 0.3s ease;" onclick="window.open('chat.html', '_blank')" onmouseover="this.style.transform='scale(1.05)'; this.style.background='rgba(251,191,36,0.2)'" onmouseout="this.style.transform='scale(1)'; this.style.background='rgba(255,255,255,0.1)'">
+                    <span class="stat-number" style="display: block; font-size: 2rem; font-weight: bold; color: #fbbf24;"><i class="fas fa-robot" style="font-size: 1.5rem; margin-bottom: 0.2rem;"></i><br>24/7</span>
+                    <span class="stat-label" style="font-size: 0.9rem; color: white;">AI Support</span>
+                </div>
+            </div>
+            
+            <div class="hero-buttons" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+                <a href="registration.html" class="btn btn-primary" style="background: #fbbf24; color: #1f2937; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: bold; transition: all 0.3s; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);">Join Today</a>
+                <a href="tel:+919876543210" class="btn btn-secondary" style="background: rgba(255,255,255,0.2); color: white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: bold; border: 2px solid white; transition: all 0.3s; backdrop-filter: blur(10px);">
+                    <i class="fas fa-phone"></i> Call Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About StudyHub Library</h2>
+                <p>Empowering students with the perfect study environment since 2019</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Our Mission</h3>
+                    <p>To provide students with a conducive learning environment that fosters academic excellence and personal growth. We believe every student deserves access to quality study facilities.</p>
+                    
+                    <h3>Why Choose Us?</h3>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Peaceful & distraction-free environment</li>
+                        <li><i class="fas fa-check"></i> Modern facilities with AC & WiFi</li>
+                        <li><i class="fas fa-check"></i> Affordable membership plans</li>
+                        <li><i class="fas fa-check"></i> Experienced and supportive staff</li>
+                        <li><i class="fas fa-check"></i> Flexible timings for all students</li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <img src="image.png" alt="About Us">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section id="facilities" class="facilities">
+        <div class="container">
+            <div class="section-header">
+                <h2>World-Class Facilities</h2>
+                <p>Everything you need for focused studying</p>
+            </div>
+            <div class="facilities-grid">
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                    <h3>Air Conditioned</h3>
+                    <p>Comfortable temperature maintained throughout the day for optimal studying</p>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h3>High-Speed WiFi</h3>
+                    <p>Free unlimited internet access for research and online learning</p>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Extensive Library</h3>
+                    <p>Thousands of books, magazines, and reference materials</p>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-chair"></i>
+                    </div>
+                    <h3>Comfortable Seating</h3>
+                    <p>Ergonomic chairs and spacious desks for long study sessions</p>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-charging-station"></i>
+                    </div>
+                    <h3>Charging Points</h3>
+                    <p>Individual charging stations at every seat</p>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Environment</h3>
+                    <p>CCTV monitoring and personal lockers for safety</p>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Parking Available</h3>
+                    <p>Safe parking space for bikes and cars</p>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <h3>Refreshments</h3>
+                    <p>Water dispenser and light refreshments available</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Plans -->
+    <section id="plans" class="plans">
+        <div class="container">
+            <div class="section-header">
+                <h2>Flexible Membership Plans</h2>
+                <p>Choose the plan that fits your study schedule</p>
+            </div>
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Daily Pass</h3>
+                        <div class="plan-price">
+                            <span class="currency">₹</span>
+                            <span class="amount">50</span>
+                            <span class="period">/day</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Full day access</li>
+                        <li><i class="fas fa-check"></i> All facilities included</li>
+                        <li><i class="fas fa-check"></i> No commitment</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="selectPlan('daily', 50)">Choose Plan</button>
+                </div>
+                
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Weekly Pass</h3>
+                        <div class="plan-price">
+                            <span class="currency">₹</span>
+                            <span class="amount">300</span>
+                            <span class="period">/week</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> 7 days access</li>
+                        <li><i class="fas fa-check"></i> Save ₹50</li>
+                        <li><i class="fas fa-check"></i> Flexible timing</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="selectPlan('weekly', 300)">Choose Plan</button>
+                </div>
+                
+                <div class="plan-card popular">
+                    <div class="plan-badge">Most Popular</div>
+                    <div class="plan-header">
+                        <h3>Monthly Pass</h3>
+                        <div class="plan-price">
+                            <span class="currency">₹</span>
+                            <span class="amount">500</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> 30 days unlimited</li>
+                        <li><i class="fas fa-check"></i> Save ₹1000</li>
+                        <li><i class="fas fa-check"></i> Priority seating</li>
+                        <li><i class="fas fa-check"></i> Free trial week</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="selectPlan('monthly', 500)">Choose Plan</button>
+                </div>
+                
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Quarterly Pass</h3>
+                        <div class="plan-price">
+                            <span class="currency">₹</span>
+                            <span class="amount">1400</span>
+                            <span class="period">/3 months</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> 90 days access</li>
+                        <li><i class="fas fa-check"></i> Save ₹100</li>
+                        <li><i class="fas fa-check"></i> Guest pass included</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="selectPlan('quarterly', 1400)">Choose Plan</button>
+                </div>
+                
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Yearly Pass</h3>
+                        <div class="plan-price">
+                            <span class="currency">₹</span>
+                            <span class="amount">5000</span>
+                            <span class="period">/year</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> 365 days access</li>
+                        <li><i class="fas fa-check"></i> Save ₹1000</li>
+                        <li><i class="fas fa-check"></i> VIP benefits</li>
+                        <li><i class="fas fa-check"></i> Career guidance</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="selectPlan('yearly', 5000)">Choose Plan</button>
+                </div>
+                
+                <div class="plan-card student-discount">
+                    <div class="plan-badge">Student Special</div>
+                    <div class="plan-header">
+                        <h3>Student Discount</h3>
+                        <div class="plan-price">
+                            <span class="discount">10% OFF</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Valid student ID required</li>
+                        <li><i class="fas fa-check"></i> Applicable on all plans</li>
+                        <li><i class="fas fa-check"></i> Additional benefits</li>
+                    </ul>
+                    <button class="btn btn-secondary" onclick="showStudentDiscount()">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Library Gallery</h2>
+                <p>Take a virtual tour of our facilities</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400" alt="Study Area">
+                    <div class="gallery-overlay">
+                        <h4>Main Study Hall</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Reading Section">
+                    <div class="gallery-overlay">
+                        <h4>Reading Section</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=400" alt="Group Study">
+                    <div class="gallery-overlay">
+                        <h4>Group Study Area</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400" alt="Computer Section">
+                    <div class="gallery-overlay">
+                        <h4>Computer Section</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our Students Say</h2>
+                <p>Success stories from our community</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"StudyHub Library provided me with the perfect environment to prepare for my competitive exams. The facilities are excellent and the staff is very supportive."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Student">
+                        <div class="author-info">
+                            <h4>Rahul Sharma</h4>
+                            <span>IAS Aspirant</span>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The peaceful environment and modern facilities helped me focus on my studies. I cleared my CA exam in the first attempt!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100" alt="Student">
+                        <div class="author-info">
+                            <h4>Priya Patel</h4>
+                            <span>CA Student</span>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Best library in the city! Clean, comfortable, and affordable. The WiFi is super fast and the AC keeps the environment perfect for studying."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100" alt="Student">
+                        <div class="author-info">
+                            <h4>Amit Singh</h4>
+                            <span>Engineering Student</span>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Visit Us Today</h2>
+                <p>Come and experience our world-class facilities</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Address</h4>
+                            <p>Haldoni, greater noida (UP) Education, Knowledge Park<br>Your City - 201306</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
+                            <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+                            <p><a href="tel:+919876543211">+91 98765 43211</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p><a href="mailto:info@studyhublibrary.com">info@studyhublibrary.com</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Working Hours</h4>
+                            <p>Monday - Sunday<br>6:00 AM - 11:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.8234567890123!2d77.4324567890123!3d28.4567890123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sHaldoni%2C%20Greater%20Noida%2C%20Uttar%20Pradesh%20201306!5e0!3m2!1sen!2sin!4v1635784008021!5m2!1sen!2sin" 
+                            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-book-open"></i>
+                        <span>StudyHub Library</span>
+                    </div>
+                    <p>Empowering students with the perfect study environment for academic excellence.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#facilities">Facilities</a></li>
+                        <li><a href="#plans">Membership Plans</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="registration.html">Online Registration</a></li>
+                        <li><a href="#">Student Portal</a></li>
+                        <li><a href="#">Mobile App</a></li>
+                        <li><a href="#">Career Guidance</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> info@studyhublibrary.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Education Street</li>
+                        <li><i class="fab fa-whatsapp"></i> WhatsApp Support</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 StudyHub Library. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms & Conditions</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/919876543210" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Call Float Button -->
+    <a href="tel:+919876543210" class="call-float">
+        <i class="fas fa-phone"></i>
+    </a>
+    
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-pulse"></div>
+        <a href="chat.html" class="chat-toggle" title="Live Chat with AI">
+            <i class="fas fa-comments"></i>
+        </a>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAdminModal()">&times;</span>
+            <h2><i class="fas fa-user-shield"></i> Admin Login</h2>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminUsername">Username:</label>
+                    <input type="text" id="adminUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password:</label>
+                    <input type="password" id="adminPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <div class="admin-links">
+                    <a href="#" onclick="openForgetPasswordModal()">Forgot Password?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Forget Password Modal -->
+    <div id="forgetPasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeForgetPasswordModal()">&times;</span>
+            <h2><i class="fas fa-key"></i> Reset Password</h2>
+            <form id="forgetPasswordForm">
+                <div class="form-group">
+                    <label for="resetUsername">Username:</label>
+                    <input type="text" id="resetUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password:</label>
+                    <input type="password" id="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Change Password</button>
+                <div class="admin-links">
+                    <a href="#" onclick="backToLogin()">Back to Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="libraryscript.js"></script>
+    <script>
+        function openAdminModal() {
+            document.getElementById('adminModal').style.display = 'block';
+        }
+        
+        function closeAdminModal() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+        
+        function openForgetPasswordModal() {
+            closeAdminModal();
+            document.getElementById('forgetPasswordModal').style.display = 'block';
+        }
+        
+        function closeForgetPasswordModal() {
+            document.getElementById('forgetPasswordModal').style.display = 'none';
+        }
+        
+        function backToLogin() {
+            closeForgetPasswordModal();
+            openAdminModal();
+        }
+        
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            const adminCredentials = JSON.parse(localStorage.getItem('admin_credentials') || '{"username":"admin","password":"admin123"}');
+            
+            if(username === adminCredentials.username && password === adminCredentials.password) {
+                showNotification('Login successful! Redirecting...', 'success');
+                setTimeout(() => {
+                    window.location.href = 'adminpanel.html';
+                }, 1500);
+            } else {
+                showNotification('Invalid username or password', 'error');
+            }
+        });
+        
+        document.getElementById('forgetPasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('resetUsername').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (newPassword !== confirmPassword) {
+                showNotification('Passwords do not match', 'error');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                showNotification('Password must be at least 6 characters', 'error');
+                return;
+            }
+            
+            const adminCredentials = { username: username, password: newPassword };
+            localStorage.setItem('admin_credentials', JSON.stringify(adminCredentials));
+            
+            showNotification('Password changed successfully!', 'success');
+            setTimeout(() => {
+                backToLogin();
+            }, 1500);
+        });
+        
+        window.onclick = function(event) {
+            const adminModal = document.getElementById('adminModal');
+            const forgetModal = document.getElementById('forgetPasswordModal');
+            if (event.target == adminModal) {
+                adminModal.style.display = 'none';
+            }
+            if (event.target == forgetModal) {
+                forgetModal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
